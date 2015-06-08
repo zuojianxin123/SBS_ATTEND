@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="smsdb" Class="DataClassesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=192.168.20.2;Initial Catalog=smsdb;User ID=sa" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="smsdbConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.wall_task_erro_info" Member="wall_task_erro_info">
+    <Type Name="wall_task_erro_info">
+      <Column Name="task_guid" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="task_name" Type="System.String" DbType="Char(512) NOT NULL" CanBeNull="false" />
+      <Column Name="status" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="task_type" Type="System.String" DbType="Char(32)" CanBeNull="true" />
+      <Column Name="description" Type="System.String" DbType="Char(128)" CanBeNull="true" />
+      <Column Name="createtime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.wall_task_running_info" Member="wall_task_running_info">
+    <Type Name="wall_task_running_info">
+      <Column Name="task_guid" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="task_name" Type="System.String" DbType="Char(512) NOT NULL" CanBeNull="false" />
+      <Column Name="status" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="task_type" Type="System.String" DbType="Char(32) NOT NULL" CanBeNull="false" />
+      <Column Name="description" Type="System.String" DbType="Char(128)" CanBeNull="true" />
+      <Column Name="createtime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.beibo" Member="beibo">
+    <Type Name="beibo">
+      <Column Name="beibo_count" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="type" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.wall_complete_task" Member="wall_complete_task">
+    <Type Name="wall_complete_task">
+      <Column Name="task_type" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="count" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Memo" Type="System.String" DbType="NChar(100)" CanBeNull="true" />
+    </Type>
+  </Table>
+</Database>

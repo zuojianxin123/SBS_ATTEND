@@ -1,0 +1,100 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>计算机部值班手册</title>
+<style type="text/css">
+.style1 {
+	color: #FF0000;
+}
+</style>
+</head>
+
+<body>
+<b>工作帮助记录</b>
+<ul>
+<li><a href="#1">督促办公室卫生</a></li>
+<li><a href="#2">整理维修间保持整洁</a></li>
+<li><a href="#3">检查SBS-Newsdb磁盘空间、数据库备份完成情况 </a></li>
+<li><a href="#4">检查SBS-Database1磁盘空间、数据备份完成情况</a></li>
+<li><a href="#5">检查媒资磁盘空间、数据库备份完成情况</a></li>
+<li><a href="#8">防病毒系统的病毒定义更新</a> </li>
+<li><a href="#9">检查是否有新的ADPower数据包，有则升级</a></li>
+<li><a href="#10">检查两台监播服务器的磁盘空间如满则删除</a></li>
+</ul>
+
+<a name="1"></a>
+<b>1.督促卫生工作</b><br>
+
+  每日值班人员要负责办公室的卫生整理工作，下班前清理地面卫生。
+  同时值班人员要督促其他工作人员对其桌面地面进行清理整洁
+<br /><br>
+<a name="2"></a>
+<b>2.整理维修间保持整洁</b><br>
+值班人员负责每日清理和保持维修间的卫生情况。值班人员当日早来到维修间可以进行相关检查，出现严重卫生情况可以责令前日值班人员进行整理。
+
+<br />
+同时值班人员在每日下班前，必须清理维修间保持其整洁的状况。<br />
+每日下班前必须
+
+检查维修间的门窗是否关好<br />
+<br />
+<a name="3"></a>
+<b>3.检查SBS-Newsdb磁盘空间，数据库备份完成情况<br />
+</b>
+&nbsp; a.切换到FILE机器<br />
+&nbsp; b.检查“E:\数据库备份\文稿数据库”目录<br />
+&nbsp; c.每日SQL 将备份21个文件，每日在凌晨1点将会自动的进行备份<br />
+&nbsp; b.所以这21个备份文件的生成日期将是值班当日的。比如说值班日期是1月31日，那么生成文件的时间将会是1月31日<br />
+&nbsp;d.检查c:,d:盘的空间大小，保证拥有一定的空间容量
+
+<br />
+<br />
+<a name="4"></a>
+<b>
+4.SBS-Database1磁盘空间，数据库备份完成情况<br />
+</b>
+&nbsp;a.机房靠窗第一个切换屏幕，切换到FILE<br />
+&nbsp;b:打开“E:\数据库备份\广告数据库”目录<br />
+&nbsp;c:检查该文件夹下是否有文件修改时间为当天凌晨1点的数据库备份文件<br />
+&nbsp;d:检查c:,d:,e:的磁盘大小保证拥有一定的空间容量<br />
+&nbsp;<br />
+<a name="5"></a>
+<strong>5.检查媒资磁盘空间、数据库备份完成情况</strong><br />
+&nbsp;a.机房靠窗第二个切换屏幕，切换到FILE<br />
+&nbsp;b.打开“E:\数据库备份\媒资数据库”目录<br />
+&nbsp;c.数据库每日将于19：00开始备份，总计备份16个数据库文件<br />
+<br />
+<a name="8"></a>
+<strong>6.防病毒系统的病毒定义更新</strong><br />
+a.靠窗第一个切换屏幕，选择LP20003<br />
+b.点击IE收藏symantec下载页，找到最新的病毒库下载
+<br />
+c.下载后点击执行,在LP20003上面执行该病毒库<br />
+<br />
+<a name="9"></a>
+<b>7.检查是否有ADPOWER升级包</b><br />
+a.靠窗第一个切换屏幕，选择SBS0-adPower机器进行登陆<br />
+    b.媒介智讯网站地址：http://www.ctrmi.com/CTRMI.Net/ 点击“上海电信”进入登录界面用户名：sztv-zss 密码：123456<br />
+    c.点击上面菜单栏的“下载中心”后，再点击左侧菜单栏的数据下载才能看到最新的数据，点击下载<br />
+d.下载后请将升级包下载到目录c:\adp data目录下面并且解压缩以后<br />
+e.打开数据安装(Dataloader)<br />
+<img alt="" src="images/adupdate1.bmp" width="699" height="428" /><br />
+f.点击“选择数据文件，找到刚才下载后解压缩的文件,并且执行下一步进行<br />
+<img alt="" src="images/adupdate2.bmp" width="628" height="456" /><br />
+<br />
+<img alt="" src="images/adupdate3.bmp" width="773" height="579" />&nbsp;<br />
+<br />
+
+<br>
+<a name="10"></a>
+<b>8.检查两台监播服务器的磁盘空间如满则删除</b>
+<br>
+a.轮流登陆TV-SCAN-2, TV-SCAN-1两台机器<br />
+b.检查d:空间是否充足<br />
+c:与d:\video下面原则上面保留两个月的记录文件，如果超过2个月请进行清理
+
+</body>
+
+</html>

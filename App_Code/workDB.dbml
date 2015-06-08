@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="WorkFlow" Class="workDBDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=192.168.100.19;Initial Catalog=WorkFlow;User ID=sa" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="WorkFlowConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.workhistory" Member="workhistory">
+    <Type Name="workhistory">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="worker" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="worker1" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="worktime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="workcontent" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="workcontent1" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="workstatus" Type="System.String" DbType="VarChar(1)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.worker" Member="worker">
+    <Type Name="worker">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="username" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+    </Type>
+  </Table>
+</Database>
