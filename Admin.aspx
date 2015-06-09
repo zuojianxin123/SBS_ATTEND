@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="Admin.aspx.cs" Inherits="Admin" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="Admin.aspx.cs" Inherits="Admin" StylesheetTheme="Blue"%>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 </asp:Content>
@@ -15,22 +15,26 @@
             ForeColor="#3366FF" Text="审批调休"></asp:Label>
         <br />
         <br />
-        <asp:GridView ID="GridView1" runat="server" CellPadding="4" ForeColor="#333333" 
-            GridLines="None">
-            <AlternatingRowStyle BackColor="White" />
-            <EditRowStyle BackColor="#2461BF" />
-            <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
-            <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
-            <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
-            <RowStyle BackColor="#EFF3FB" />
-            <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
-            <SortedAscendingCellStyle BackColor="#F5F7FB" />
-            <SortedAscendingHeaderStyle BackColor="#6D95E1" />
-            <SortedDescendingCellStyle BackColor="#E9EBEF" />
-            <SortedDescendingHeaderStyle BackColor="#4870BE" />
+         <asp:GridView ID="gv_over" runat="server" AutoGenerateColumns="False"
+            SkinID="gridviewskin"  Width="1000px" >
+            <Columns>
+                <asp:TemplateField HeaderText="审核">
+                    <EditItemTemplate>
+                        <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
+                    </EditItemTemplate>
+                    <ItemTemplate>
+                        <asp:CheckBox ID="chb_reivew" runat="server" />
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:BoundField HeaderText="姓名" DataField="name" />
+                <asp:BoundField HeaderText="原始调休" DataField="origin" />
+                <asp:BoundField HeaderText="当前调休" DataField="current" />
+                <asp:BoundField HeaderText="调休理由" DataField="reason" />
+            </Columns>
         </asp:GridView>
         <br />
-        <asp:Button ID="btn_overtime" runat="server" Text="审批调休" />
+        <asp:Button ID="btn_overtime" runat="server" Text="审批调休" Font-Bold="True" 
+            Font-Size="Large" onclick="btn_overtime_Click" />
         <br />
         <br />
     <asp:Label ID="Label1" runat="server" Text="本月调整休息人员表" Font-Bold="True" 
@@ -38,8 +42,7 @@
     <br />
     <br />
     <asp:Calendar ID="cal_shift" runat="server" Width="100%" Height="500px" 
-        ondayrender="calshift_DayRender" BorderColor="#98BF2F" BorderWidth="1px" 
-        onselectionchanged="calshift_SelectionChanged">
+        ondayrender="calshift_DayRender" BorderColor="#98BF2F" BorderWidth="1px">
         <SelectedDayStyle BackColor="#D3EBF6" BorderColor="#98CBF2"  
             BorderStyle="Solid" BorderWidth="2px"
             ForeColor="Black" />
@@ -58,7 +61,7 @@
     <br />
     <asp:Calendar ID="cal_leave" runat="server" Width="100%" Height="500px" 
         ondayrender="calleave_DayRender" BorderColor="#98BF2F" BorderWidth="1px" 
-        onselectionchanged="calleave_SelectionChanged" Font-Size="22px">
+         Font-Size="22px">
         <SelectedDayStyle BackColor="#D3EBF6" BorderColor="#98CBF2"  
             BorderStyle="Solid" BorderWidth="2px"
             ForeColor="Black" />
