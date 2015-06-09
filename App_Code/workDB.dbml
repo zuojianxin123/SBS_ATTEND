@@ -17,4 +17,42 @@
       <Column Name="username" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
     </Type>
   </Table>
+  <Table Name="dbo.permission" Member="permission">
+    <Type Name="permission">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="username" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="permission" Member="permission1" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="userid" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="pwd" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="quotan" Type="System.Double" DbType="Float" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.overtime" Member="overtime">
+    <Type Name="overtime">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="originwork" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="overwork" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="origin_shift" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="current_shift" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="origin_week" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="current_week" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="reason" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="approve" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.workoff" Member="workoff">
+    <Type Name="workoff">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="starttime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="endtime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="originshift" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="currentshift" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="originweek" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="currentweek" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="reason" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="approve" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
 </Database>

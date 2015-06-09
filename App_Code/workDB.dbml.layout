@@ -14,5 +14,23 @@
         <elementListCompartment Id="f227c725-1c20-41c3-8614-0c9d501b12a2" absoluteBounds="1.7650000000000001, 3.085, 1.9700000000000002, 0.62950642903645826" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
+    <classShape Id="08811e0a-ee2a-4011-9208-08d787af2a8f" absoluteBounds="2.5, 4.625, 2, 1.9535852050781251">
+      <DataClassMoniker Name="/workDBDataContext/permission" />
+      <nestedChildShapes>
+        <elementListCompartment Id="30300be9-93fb-496e-9adf-194b98dccd90" absoluteBounds="2.515, 5.085, 1.9700000000000002, 1.393585205078125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="e62efc3e-5f30-4bed-9ef9-915c41fd4879" absoluteBounds="6, 5.5, 2, 2.7176639811197916">
+      <DataClassMoniker Name="/workDBDataContext/overtime" />
+      <nestedChildShapes>
+        <elementListCompartment Id="aa271f41-ce88-413f-b4bf-a4bdcdd7c0e3" absoluteBounds="6.015, 5.96, 1.9700000000000002, 2.1576639811197915" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="ae388fcf-3b46-4e32-9b19-550e40db40e3" absoluteBounds="7.625, 1, 2, 2.7176639811197916">
+      <DataClassMoniker Name="/workDBDataContext/workoff" />
+      <nestedChildShapes>
+        <elementListCompartment Id="dc2bf531-9945-42d2-ab34-243c81e06acf" absoluteBounds="7.6400000000000006, 1.46, 1.9700000000000002, 2.1576639811197915" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
   </nestedChildShapes>
 </ordesignerObjectsDiagram>

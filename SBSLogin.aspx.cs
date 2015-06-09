@@ -29,7 +29,7 @@ public partial class SBSLogin : System.Web.UI.Page
         string usrname = tb_name.Text;
         string pwd = tb_pwd.Text;
 
-        LoginDBDataContext db = new LoginDBDataContext();
+        workDBDataContext db = new workDBDataContext();
       
         var query = from a in db.permission
                     where (a.pwd == pwd && a.userid == usrname)
@@ -41,9 +41,9 @@ public partial class SBSLogin : System.Web.UI.Page
         }
         else
         {
-            int pm = (int)query.ToArray()[0].permission1;
+            int pm = (int)query.First().permission1;
             Session["permission"] = pm;
-            Session["name"] = query.ToArray()[0].username;
+            Session["name"] = query.First().username;
 
             switch (pm)
             {
