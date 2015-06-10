@@ -278,4 +278,34 @@ public partial class Admin : System.Web.UI.Page
         //刷新表单
         Response.Redirect("~/admin.aspx");
     }
+
+    protected void btn_leave_Click(object sender, EventArgs e)
+    {
+        int row_count = 0;
+        workDBDataContext db = new workDBDataContext();
+        var query = from a in db.workoff
+                    where a.approve == -1
+                    select a;
+
+        foreach (GridViewRow r in gv_leave.Rows)
+        {
+            Control c = r.FindControl("chb_leave");
+            workoff ot = query.ToList().ElementAt(row_count++);
+            if (ot.name == r.Cells[1].Text)
+            {
+                if (((CheckBox)c).Checked)
+                {
+                    ot.approve = 4;
+                }
+                else
+                {
+                    ot.approve = 5;
+                }
+            }
+        }
+        //修改数据库
+        db.SubmitChanges();
+        //刷新表单
+        Response.Redirect("~/admin.aspx");
+    }
 }

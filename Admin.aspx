@@ -26,7 +26,9 @@
                         <asp:CheckBox ID="chb_reivew" runat="server" />
                     </ItemTemplate>
                 </asp:TemplateField>
-                <asp:BoundField HeaderText="姓名" DataField="name" />
+                <asp:BoundField HeaderText="姓名" DataField="name" >
+                <ItemStyle ForeColor="#FF6600" />
+                </asp:BoundField>
                 <asp:BoundField HeaderText="原始调休" DataField="origin" />
                 <asp:BoundField HeaderText="当前调休" DataField="current" />
                 <asp:BoundField HeaderText="调休理由" DataField="reason" />
@@ -53,7 +55,7 @@
                         <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
                     </EditItemTemplate>
                     <ItemTemplate>
-                        <asp:CheckBox ID="cb_leave" runat="server" />
+                        <asp:CheckBox ID="chb_leave" runat="server" />
                     </ItemTemplate>
                 </asp:TemplateField>
                 <asp:BoundField DataField="name" HeaderText="姓名" />
@@ -68,7 +70,7 @@
         <br />
         <br />
         <asp:Button ID="btn_leave" runat="server" Text="审批请假" Font-Bold="True" 
-            Font-Size="Large" onclick="btn_overtime_Click" />
+            Font-Size="Large" onclick="btn_leave_Click" />
         <br />
         <br />
     <asp:Label ID="Label1" runat="server" Text="本月调整休息人员表" Font-Bold="True" 
