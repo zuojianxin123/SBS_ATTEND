@@ -13,11 +13,46 @@ public partial class Admin : System.Web.UI.Page
         if (!IsPostBack)
         {
             this.lb_name.Text = "欢迎" + Session["name"] + "领导登录！";
-            gridviewbind();
+            gridviewoverbind(); 
+            gridviewleavebind();
+        }   
+    }
+
+    public void gridviewleavebind()
+    {
+        workDBDataContext db = new workDBDataContext();
+        var query = from a in db.workoff
+                    where a.approve == -1
+                    select a;
+        if (query.Count() != 0)
+        {
+            DataSet ds = new DataSet();
+            DataTable tb = ds.Tables.Add("reivew_leave");
+            tb.Columns.Add(new DataColumn("name", typeof(string)));
+            tb.Columns.Add(new DataColumn("starttime", typeof(string)));
+            tb.Columns.Add(new DataColumn("endtime", typeof(string)));
+            tb.Columns.Add(new DataColumn("reason", typeof(string)));
+
+            foreach (var leave in query)
+            {
+                string origin_str = leave.starttime.ToString().Substring(0, leave.starttime.ToString().LastIndexOf(" ")) + "," + leave.originweek + "," + leave.originshift;
+                string current_str = leave.endtime.ToString().Substring(0, leave.endtime.ToString().LastIndexOf(" ")) + "," + leave.currentweek + "," + leave.currentshift;
+                tb.Rows.Add(new object[] { leave.name, origin_str, current_str, leave.reason });
+            }
+
+            this.gv_leave.DataSource = ds;
+            this.gv_leave.DataBind();
+            this.lb_leave.Visible = false;
+            this.btn_leave.Visible = true;
+        }
+        else 
+        {
+            this.lb_leave.Visible = true;
+            this.btn_leave.Visible = false;
         }
     }
 
-    public void gridviewbind()
+    public void gridviewoverbind()
     {
         workDBDataContext db = new workDBDataContext();
         var query = from a in db.overtime
@@ -37,10 +72,17 @@ public partial class Admin : System.Web.UI.Page
             {
                 string origin_str = over.originwork.ToString().Substring(0, over.originwork.ToString().LastIndexOf(" ")) + "," + over.origin_week + "," + over.origin_shift;
                 string current_str = over.overwork.ToString().Substring(0, over.overwork.ToString().LastIndexOf(" ")) + "," + over.current_week + "," + over.current_shift;
-                tb.Rows.Add(new object[]{over.name, origin_str, current_str, over.reason});
+                tb.Rows.Add(new object[] { over.name, origin_str, current_str, over.reason });
             }
             this.gv_over.DataSource = ds;
             this.gv_over.DataBind();
+            this.lb_over.Visible = false;
+            this.btn_overtime.Visible = true;
+        }
+        else 
+        {
+            this.lb_over.Visible = true;
+            this.btn_overtime.Visible = false;
         }
 
     }
@@ -127,19 +169,76 @@ public partial class Admin : System.Web.UI.Page
         }
 
     }
-    protected void calshift_SelectionChanged(object sender, EventArgs e)
-    {
-
-    }
+  
     protected void calleave_DayRender(object sender, DayRenderEventArgs e)
     {
+        string morning = "";
+        string noon = "";
+
         if (e.Day.IsOtherMonth)
         {
             e.Cell.Controls.Clear();
         }
         else
         {
-            e.Cell.Text = e.Day.Date.Day+"";
+            DateTime dateToday = e.Day.Date;
+            workDBDataContext db = new workDBDataContext();
+            var query_leave = from a in db.workoff
+                              where (a.starttime <= dateToday && a.endtime >= dateToday) && a.approve == 4
+                              select a;
+            if (query_leave.Count() != 0)
+            {
+                foreach (var work in query_leave)
+                {
+                    if (work.starttime < dateToday && work.endtime > dateToday)     //中间日期
+                    {
+                        morning += work.name + ";";
+                        noon += work.name + ";";
+                    }
+                    else if (work.starttime == dateToday && work.endtime != dateToday) //正好开始日期
+                    {
+                        if (work.originshift == "上午")
+                        {
+                            morning += work.name + ";";
+                            noon += work.name + ";";
+                        }
+                        else 
+                        {
+                            noon += work.name + ";";
+                        }
+                    }
+                    else if (work.endtime == dateToday && work.starttime != dateToday)  //正好结束日期
+                    {
+                        if (work.currentshift == "下午")
+                        {
+                            morning += work.name + ";";
+                            noon += work.name + ";";
+                        }
+                        else 
+                        {
+                            morning += work.name + ";";
+                        }
+                    }
+                    else if (work.endtime == dateToday && work.starttime == dateToday)  //正好当天
+                    {
+                        if (work.originshift == "上午")
+                        {
+                            morning += work.name + ";";
+                            if (work.currentshift == "下午")
+                            {
+                                noon += work.name + ";";
+                            }
+                        }
+                        else 
+                        {
+                            noon += work.name + ";";
+                        }
+                    }
+                }
+            }
+            e.Cell.Text = "<div style = 'font-size:22px;" + (e.Day.Date.Day == DateTime.Now.Day ? "background-color:#C6E7FF; color:#0B67A9'>" : "'>") + e.Day.Date.Day + "</br>"
+                   + "<div style='font-size:12px; color:#676767;'>上午："
+                   + morning + "</br >下午：" + noon + "</div></div>";
         }
     }
 
@@ -152,21 +251,31 @@ public partial class Admin : System.Web.UI.Page
 
     protected void btn_overtime_Click(object sender, EventArgs e)
     {
+        int row_count = 0;
+        workDBDataContext db = new workDBDataContext();
+        var query = from a in db.overtime
+                    where a.approve == -1
+                    select a;
+
         foreach (GridViewRow r in gv_over.Rows)
         {
-            overtime ot = new overtime();
             Control c = r.FindControl("chb_reivew");
-            if (((CheckBox)c).Checked)
+            overtime ot = query.ToList().ElementAt(row_count++);
+            if (ot.name == r.Cells[1].Text)
             {
-                ot.approve = 4;
+                if (((CheckBox)c).Checked)
+                {
+                    ot.approve = 4;
+                }
+                else
+                {
+                    ot.approve = 5;
+                }
             }
-            else 
-            {
-                ot.approve = 5;
-            }
-
-            //修改数据库
-            //....
         }
+        //修改数据库
+        db.SubmitChanges();
+        //刷新表单
+        Response.Redirect("~/admin.aspx");
     }
 }

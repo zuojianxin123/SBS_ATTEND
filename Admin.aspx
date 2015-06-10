@@ -33,7 +33,41 @@
             </Columns>
         </asp:GridView>
         <br />
+        <asp:Label ID="lb_over" runat="server" Font-Bold="True" Font-Size="X-Large" 
+            ForeColor="#FF3300" Text="无审批记录！！" Visible="False"></asp:Label>
+        <br />
+        <br />
         <asp:Button ID="btn_overtime" runat="server" Text="审批调休" Font-Bold="True" 
+            Font-Size="Large" onclick="btn_overtime_Click" />
+        <br />
+        <br />
+        <asp:Label ID="lb_name1" runat="server" Font-Bold="True" Font-Size="X-Large" 
+            ForeColor="#3366FF" Text="审批请假"></asp:Label>
+        <br />
+        <br />
+        <asp:GridView ID="gv_leave" runat="server" AutoGenerateColumns="False"
+            SkinID="gridviewskin"  Width="1000px">
+            <Columns>
+                <asp:TemplateField HeaderText="审核">
+                    <EditItemTemplate>
+                        <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
+                    </EditItemTemplate>
+                    <ItemTemplate>
+                        <asp:CheckBox ID="cb_leave" runat="server" />
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:BoundField DataField="name" HeaderText="姓名" />
+                <asp:BoundField DataField="starttime" HeaderText="开始时间" />
+                <asp:BoundField DataField="endtime" HeaderText="结束时间" />
+                <asp:BoundField DataField="reason" HeaderText="请假理由" />
+            </Columns>
+        </asp:GridView>
+        <br />
+        <asp:Label ID="lb_leave" runat="server" Font-Bold="True" Font-Size="X-Large" 
+            ForeColor="#FF3300" Text="无审批记录！！" Visible="False"></asp:Label>
+        <br />
+        <br />
+        <asp:Button ID="btn_leave" runat="server" Text="审批请假" Font-Bold="True" 
             Font-Size="Large" onclick="btn_overtime_Click" />
         <br />
         <br />
