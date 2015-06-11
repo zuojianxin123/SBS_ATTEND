@@ -9,7 +9,10 @@ public partial class Commit : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        if (!IsPostBack)
+        {
+            this.lb_name.Text = "欢迎 " + Session["name"] + " 同志登录！";
+        }
     }
     protected void lbtn_back_Click(object sender, EventArgs e)
     {
@@ -26,6 +29,7 @@ public partial class Commit : System.Web.UI.Page
         if (Session["name"] == null)
         {
             Page.ClientScript.RegisterStartupScript(GetType(), "", "alert('登录已过期');location.href='SBSLogin.aspx';",true);
+            return;
         }
         mywork.name = Session["name"].ToString();
         mywork.starttime = DateTime.Parse(this.txtFrom.Text);

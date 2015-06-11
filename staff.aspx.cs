@@ -22,7 +22,7 @@ public partial class staff : System.Web.UI.Page
     {
         workDBDataContext db = new workDBDataContext();
         var query = from a in db.workoff
-                    where (a.starttime.Value.Month == DateTime.Now.Month) && (a.name == Session["name"].ToString())
+                    where (a.starttime.Value.Month == DateTime.Now.Month) && (a.name == Session["name"].ToString() && (a.starttime.Value.Year == DateTime.Now.Year))
                     select a;
         if (query.Count() != 0)
         {
@@ -54,7 +54,7 @@ public partial class staff : System.Web.UI.Page
     {
         workDBDataContext db = new workDBDataContext();
         var query = from a in db.overtime
-                    where (a.originwork.Value.Month == DateTime.Now.Month) && (a.name == Session["name"].ToString())
+                    where (a.originwork.Value.Month == DateTime.Now.Month) && (a.name == Session["name"].ToString() && (a.originwork.Value.Year == DateTime.Now.Year))
                     select a;
         if (query.Count() != 0)
         {
@@ -254,7 +254,7 @@ public partial class staff : System.Web.UI.Page
     protected void lbtn_overtime_Click(object sender, EventArgs e)
     {
         if (Session["name"] != null)
-            HttpContext.Current.Response.Redirect("~/Commit.aspx");
+            HttpContext.Current.Response.Redirect("~/CommitOver.aspx");
         else
             HttpContext.Current.Response.Redirect("~/SBSLogin.aspx");
     }

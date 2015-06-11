@@ -289,6 +289,7 @@ public partial class Admin : System.Web.UI.Page
         if (Session["name"] == null)
         {
             Page.ClientScript.RegisterStartupScript(GetType(), "", "alert('登录已过期');location.href='SBSLogin.aspx';",true);
+            return;
         }
 
         int row_count = 0;
