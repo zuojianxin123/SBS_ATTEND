@@ -58,7 +58,9 @@
                         <asp:CheckBox ID="chb_leave" runat="server" />
                     </ItemTemplate>
                 </asp:TemplateField>
-                <asp:BoundField DataField="name" HeaderText="姓名" />
+                <asp:BoundField DataField="name" HeaderText="姓名" >
+                <ItemStyle ForeColor="#FF6600" />
+                </asp:BoundField>
                 <asp:BoundField DataField="starttime" HeaderText="开始时间" />
                 <asp:BoundField DataField="endtime" HeaderText="结束时间" />
                 <asp:BoundField DataField="reason" HeaderText="请假理由" />

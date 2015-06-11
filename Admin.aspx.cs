@@ -12,7 +12,7 @@ public partial class Admin : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
-            this.lb_name.Text = "欢迎" + Session["name"] + "领导登录！";
+            this.lb_name.Text = "欢迎 " + Session["name"] + " 领导登录！";
             gridviewoverbind(); 
             gridviewleavebind();
         }   
@@ -251,6 +251,11 @@ public partial class Admin : System.Web.UI.Page
 
     protected void btn_overtime_Click(object sender, EventArgs e)
     {
+        if (Session["name"] == null)
+        {
+            Page.ClientScript.RegisterStartupScript(GetType(), "", "alert('登录已过期');location.href='SBSLogin.aspx';",true);
+        }
+
         int row_count = 0;
         workDBDataContext db = new workDBDataContext();
         var query = from a in db.overtime
@@ -281,6 +286,11 @@ public partial class Admin : System.Web.UI.Page
 
     protected void btn_leave_Click(object sender, EventArgs e)
     {
+        if (Session["name"] == null)
+        {
+            Page.ClientScript.RegisterStartupScript(GetType(), "", "alert('登录已过期');location.href='SBSLogin.aspx';",true);
+        }
+
         int row_count = 0;
         workDBDataContext db = new workDBDataContext();
         var query = from a in db.workoff

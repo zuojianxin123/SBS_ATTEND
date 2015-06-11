@@ -12,7 +12,7 @@ public partial class staff : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
-            this.lb_name.Text = "欢迎" + Session["name"] + "同志登录！";
+            this.lb_name.Text = "欢迎 " + Session["name"] + " 同志登录！";
             gridviewoverbind();
             gridviewleavebind();
         }   
@@ -242,5 +242,20 @@ public partial class staff : System.Web.UI.Page
                    + "<div style='font-size:12px; color:#676767;'>上午："
                    + morning + "</br >下午：" + noon + "</div></div>";
         }
+    }
+    protected void lbtn_request_Click(object sender, EventArgs e)
+    {
+        if (Session["name"] != null)
+            HttpContext.Current.Response.Redirect("~/CommitLeave.aspx");
+        else
+            HttpContext.Current.Response.Redirect("~/SBSLogin.aspx");
+    }
+
+    protected void lbtn_overtime_Click(object sender, EventArgs e)
+    {
+        if (Session["name"] != null)
+            HttpContext.Current.Response.Redirect("~/Commit.aspx");
+        else
+            HttpContext.Current.Response.Redirect("~/SBSLogin.aspx");
     }
 }
