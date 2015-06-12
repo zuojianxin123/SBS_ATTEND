@@ -6,7 +6,7 @@
 <div align="left">
         <asp:Label ID="lb_name" runat="server" Font-Bold="True" Font-Size="X-Large" 
             ForeColor="Red" Text="姓名+角色"></asp:Label>
-&nbsp;<asp:LinkButton ID="lbtn_overtime" runat="server" Font-Size="Large" 
+&nbsp;&nbsp;<asp:LinkButton ID="lbtn_overtime" runat="server" Font-Size="Large" 
             onclick="lbtn_overtime_Click">调休</asp:LinkButton>
        &nbsp;-&nbsp; <asp:LinkButton ID="lbtn_request" runat="server" Font-Size="Large" 
             onclick="lbtn_request_Click">请假</asp:LinkButton>

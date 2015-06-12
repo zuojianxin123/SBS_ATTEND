@@ -6,7 +6,10 @@
     <div align="left">
         <asp:Label ID="lb_name" runat="server" Font-Bold="True" Font-Size="X-Large" 
             ForeColor="Red" Text="姓名+角色"></asp:Label>
-&nbsp;&nbsp;
+&nbsp;
+<asp:LinkButton ID="lbtn_admin" runat="server" Font-Size="Large" 
+            onclick="lbtn_admin_Click">维护</asp:LinkButton>
+       &nbsp;-&nbsp; 
         <asp:LinkButton ID="lbtn_logout" runat="server" Font-Size="Large" 
             onclick="lbtn_logout_Click">注销</asp:LinkButton>
         <br />

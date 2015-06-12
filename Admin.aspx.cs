@@ -319,4 +319,13 @@ public partial class Admin : System.Web.UI.Page
         //刷新表单
         Response.Redirect("~/admin.aspx");
     }
+    protected void lbtn_admin_Click(object sender, EventArgs e)
+    {
+        if (Session["name"] == null)
+        {
+            Page.ClientScript.RegisterStartupScript(GetType(), "", "alert('登录已过期');location.href='SBSLogin.aspx';", true);
+            return;
+        }
+        HttpContext.Current.Response.Redirect("~/SYSADMIN.aspx");
+    }
 }
