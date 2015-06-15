@@ -44,7 +44,7 @@ public partial class CommitOver : System.Web.UI.Page
         work.reason = this.tb_leave.Text;
 
         string day = this.drp_orgin.Text.Substring(0, this.drp_orgin.Text.LastIndexOf(" "));
-        string shift = this.drp_orgin.Text.Substring(day.Length);
+        string shift = this.drp_orgin.Text.Substring(day.Length+1);
         work.origin_shift = shift;
         work.origin_week = convertdate(DateTime.Parse(day).DayOfWeek.ToString());
         work.originwork = DateTime.Parse(day);
@@ -77,7 +77,7 @@ public partial class CommitOver : System.Web.UI.Page
         {
             foreach (var work in query_morning)
             {
-                temp = work.worktime.ToString().Substring(0, work.worktime.ToString().LastIndexOf(" ")) + " 下午";
+                temp = work.worktime.ToString().Substring(0, work.worktime.ToString().LastIndexOf(" ")) + " 当天下午";
                 time.Add(temp);
             }
         }
@@ -86,7 +86,7 @@ public partial class CommitOver : System.Web.UI.Page
         {
             foreach (var work in query_noon)
             {
-                temp = work.worktime.Value.AddDays(1).ToString().Substring(0, work.worktime.Value.AddDays(1).ToString().LastIndexOf(" ")) + " 上午";
+                temp = work.worktime.ToString().Substring(0, work.worktime.ToString().LastIndexOf(" ")) + " 明天上午";
                 time.Add(temp);
             }
         }
