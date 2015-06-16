@@ -113,7 +113,7 @@ public partial class Admin : System.Web.UI.Page
 
             /*根据调休申请表生成*/
             var query_leave = from a in db.overtime
-                              where (a.overwork == dateToday || a.originwork == dateToday) && a.approve == 4
+                              where ((a.overwork.Value.Year == DateTime.Now.Year && a.overwork.Value.Month == DateTime.Now.Month) || (a.originwork.Value.Year == DateTime.Now.Year && a.originwork.Value.Month == DateTime.Now.Month)) && a.approve == 4
                               select a;
 
             if (query_leave.Count() != 0)
@@ -136,18 +136,13 @@ public partial class Admin : System.Web.UI.Page
                 // 本来调休
                 foreach (var work in query_leave)
                 {
-                    if (work.originwork == dateToday)
+                    if (work.originwork == dateToday && work.origin_shift == "当天下午")
                     {
-                        if (work.origin_shift == "明天上午")
-                        {
-                            ifday = -1;
-                            break;
-                        }
-                        else if (work.origin_shift == "当天下午")
-                        {
-                            ifnight = -1;
-                            break;
-                        }
+                        ifnight = -1;
+                    }
+                    if (work.originwork == dateToday.AddDays(-1) && work.origin_shift == "明天上午")
+                    {
+                        ifday = -1;
                     }
                 }
             }
