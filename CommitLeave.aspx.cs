@@ -41,6 +41,12 @@ public partial class Commit : System.Web.UI.Page
         mywork.reason = this.tb_leave.Text;
         mywork.approve = -1;
 
+        if (mywork.starttime > mywork.endtime)
+        {
+            Page.ClientScript.RegisterStartupScript(GetType(), "", "alert('开始日期不得晚于结束日期');location.href='CommitLeave.aspx';", true);
+            return;
+        }
+
         db.workoff.InsertOnSubmit(mywork);
         db.SubmitChanges();
         Page.ClientScript.RegisterStartupScript(GetType(),"","alert('申请提交成功!');location.href='staff.aspx';",true);

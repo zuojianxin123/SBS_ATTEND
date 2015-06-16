@@ -54,6 +54,11 @@ public partial class CommitOver : System.Web.UI.Page
         work.current_week = convertdate(DateTime.Parse(this.txtTo.Text).DayOfWeek.ToString());
         work.approve = -1;
 
+        if (work.originwork > work.overwork)
+        {
+            Page.ClientScript.RegisterStartupScript(GetType(), "", "alert('开始日期不得晚于结束日期');location.href='CommitOver.aspx';", true);
+            return;
+        }
         db.overtime.InsertOnSubmit(work);
         db.SubmitChanges();
         Page.ClientScript.RegisterStartupScript(GetType(), "", "alert('申请提交成功!');location.href='staff.aspx';", true);
