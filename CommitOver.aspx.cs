@@ -69,13 +69,15 @@ public partial class CommitOver : System.Web.UI.Page
     {
         List<string> time = new List<string>();
         string temp = "";
+        int lastday = DateTime.DaysInMonth(DateTime.Now.Year,DateTime.Now.Month-1);
+        DateTime last = new DateTime(DateTime.Now.Year,DateTime.Now.Month-1,lastday);
         workDBDataContext db = new workDBDataContext();
         var query_morning = from a in db.workhistory
                             where a.worktime.Value.Month == DateTime.Now.Month && a.worktime.Value.Year == DateTime.Now.Year && a.worker == name
                             select a;
 
         var query_noon = from a in db.workhistory
-                         where a.worktime.Value.Month == DateTime.Now.Month && a.worktime.Value.Year == DateTime.Now.Year && a.worker1 == name
+                         where (a.worktime.Value.Month == DateTime.Now.Month && a.worktime.Value.Year == DateTime.Now.Year || a.worktime.Value == last)&& a.worker1 == name
                             select a;
 
         if (query_morning.Count() != 0)

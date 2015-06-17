@@ -53,8 +53,10 @@ public partial class staff : System.Web.UI.Page
     public void gridviewoverbind()
     {
         workDBDataContext db = new workDBDataContext();
+        int lastday = DateTime.DaysInMonth(DateTime.Now.Year,DateTime.Now.Month-1);
+        DateTime last = new DateTime(DateTime.Now.Year,DateTime.Now.Month-1,lastday);
         var query = from a in db.overtime
-                    where (a.originwork.Value.Month == DateTime.Now.Month) && (a.name == Session["name"].ToString() && (a.originwork.Value.Year == DateTime.Now.Year))
+                    where ((a.originwork.Value.Month == DateTime.Now.Month && a.originwork.Value.Year == DateTime.Now.Year) || a.originwork.Value == last) && a.name == Session["name"].ToString()
                     select a;
         if (query.Count() != 0)
         {
