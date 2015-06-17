@@ -38,8 +38,8 @@
             </Columns>
         </asp:GridView>
         <br />
-        <asp:Label ID="lb_over" runat="server" Font-Bold="True" Font-Size="X-Large" 
-            ForeColor="#FF3300" Text="无审批记录！！" Visible="False"></asp:Label>
+        <asp:Button ID="btn_norecord" runat="server" Font-Bold="True" Font-Size="Large" 
+            ForeColor="Red" onclick="btn_norecord_Click" Text="无审批记录！" />
         <br />
         <br />
         <asp:Button ID="btn_overtime" runat="server" Text="审批调休" Font-Bold="True" 
@@ -70,8 +70,8 @@
             </Columns>
         </asp:GridView>
         <br />
-        <asp:Label ID="lb_leave" runat="server" Font-Bold="True" Font-Size="X-Large" 
-            ForeColor="#FF3300" Text="无审批记录！！" Visible="False"></asp:Label>
+        <asp:Button ID="btn_norecord1" runat="server" Font-Bold="True" 
+            Font-Size="Large" ForeColor="Red" onclick="btn_norecord_Click" Text="无审批记录！" />
         <br />
         <br />
         <asp:Button ID="btn_leave" runat="server" Text="审批请假" Font-Bold="True" 

@@ -12,10 +12,11 @@ public partial class Admin : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
+            //第一次请求页面
             this.lb_name.Text = "欢迎 " + Session["name"] + " 领导登录！";
-            gridviewoverbind(); 
+            gridviewoverbind();
             gridviewleavebind();
-        }   
+        }
     }
 
     public void gridviewleavebind()
@@ -42,12 +43,12 @@ public partial class Admin : System.Web.UI.Page
 
             this.gv_leave.DataSource = ds;
             this.gv_leave.DataBind();
-            this.lb_leave.Visible = false;
+            this.btn_norecord1.Visible = false;
             this.btn_leave.Visible = true;
         }
         else 
         {
-            this.lb_leave.Visible = true;
+            this.btn_norecord1.Visible = true;
             this.btn_leave.Visible = false;
         }
     }
@@ -76,12 +77,12 @@ public partial class Admin : System.Web.UI.Page
             }
             this.gv_over.DataSource = ds;
             this.gv_over.DataBind();
-            this.lb_over.Visible = false;
+            this.btn_norecord.Visible = false;
             this.btn_overtime.Visible = true;
         }
         else 
         {
-            this.lb_over.Visible = true;
+            this.btn_norecord.Visible = true;
             this.btn_overtime.Visible = false;
         }
 
@@ -322,5 +323,14 @@ public partial class Admin : System.Web.UI.Page
             return;
         }
         HttpContext.Current.Response.Redirect("~/SYSADMIN.aspx");
+    }
+    protected void btn_norecord_Click(object sender, EventArgs e)
+    {
+        if (Session["name"] == null)
+        {
+            Page.ClientScript.RegisterStartupScript(GetType(), "", "alert('登录已过期');location.href='SBSLogin.aspx';", true);
+            return;
+        }
+        HttpContext.Current.Response.Redirect("~/Admin.aspx");
     }
 }
