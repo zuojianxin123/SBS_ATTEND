@@ -20,7 +20,7 @@
         <asp:Label ID="Label2" runat="server" Text="密码:"></asp:Label>  
         </td>
         <td>
-        <asp:TextBox ID="tb_pwd" runat="server" Width="180px"></asp:TextBox>
+        <asp:TextBox ID="tb_pwd" runat="server" Width="180px" TextMode="Password"></asp:TextBox>
         </td>
     </tr>
     <tr>

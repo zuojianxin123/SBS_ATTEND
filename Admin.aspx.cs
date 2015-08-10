@@ -12,6 +12,12 @@ public partial class Admin : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
+            if (Session["name"] == null)
+            {
+                HttpContext.Current.Response.Redirect("~/SBSLogin.aspx");
+                return;
+            }
+
             //第一次请求页面
             this.lb_name.Text = "欢迎 " + Session["name"] + " 领导登录！";
             gridviewoverbind();
@@ -114,7 +120,7 @@ public partial class Admin : System.Web.UI.Page
 
             /*根据调休申请表生成*/
             var query_leave = from a in db.overtime
-                              where ((a.overwork.Value.Year == DateTime.Now.Year && a.overwork.Value.Month == DateTime.Now.Month) || (a.originwork.Value.Year == DateTime.Now.Year && a.originwork.Value.Month == DateTime.Now.Month)) && a.approve == 4
+                              where ((a.overwork.Value.Year == dateToday.Year && a.overwork.Value.Month == dateToday.Month) || (a.originwork.Value.Year == dateToday.Year && a.originwork.Value.Month == dateToday.Month)) && a.approve == 4
                               select a;
 
             if (query_leave.Count() != 0)

@@ -11,6 +11,11 @@ public partial class Commit : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
+            if (Session["name"] == null)
+            {
+                HttpContext.Current.Response.Redirect("~/SBSLogin.aspx");
+                return;
+            }
             this.lb_name.Text = "欢迎 " + Session["name"] + " 同志登录！";
         }
     }

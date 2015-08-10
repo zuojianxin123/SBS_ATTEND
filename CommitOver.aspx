@@ -12,9 +12,26 @@
 <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server" 
         EnableScriptGlobalization="True">
     </asp:ToolkitScriptManager>
+
+<div class="normalform" style="text-align:left; width:600px; margin-left:auto; margin-right:auto;">
+ <h1>您当月调休的汇总</h1>
+ <asp:Calendar ID="show_shift" runat="server" Width="100%" Height="300px" 
+        ondayrender="showshift_DayRender" BorderColor="#98BF2F" BorderWidth="1px">
+        <SelectedDayStyle BackColor="#D3EBF6" BorderColor="#98CBF2"  
+            BorderStyle="Solid" BorderWidth="2px"
+            ForeColor="Black" />
+        <WeekendDayStyle BackColor="#FED6D2" ForeColor="#0B67A9" />
+        <TodayDayStyle
+            BackColor="#C6E7FF" ForeColor="Red" Font-Bold="True" Font-Size="18px" />
+        <DayStyle ForeColor="#0B67A9" Font-Bold="True" Font-Size="16px" BorderColor="#CCCCCC" BorderStyle="Solid" BorderWidth="1px" />
+        <DayHeaderStyle BackColor="#F6FAFF" ForeColor="#4D90C0" />
+        <TitleStyle BackColor="#66BFEE" BorderColor="#EAF0F7" BorderStyle="Solid" BorderWidth="3px"
+            Font-Bold="True" Font-Size="16px" ForeColor="White" />
+    </asp:Calendar>
+    </div>
     <div class="normalform" style="text-align:left; width:400px; margin-left:auto; margin-right:auto;">
-    <div class="titleh1" style="width:400px; margin-left:auto; margin-right:auto;">
-    <h1>调休申请表</h1>
+    <div class="titleh1" style="width:400px; margin-left:auto; margin-right:auto;">  
+    <h1>当月调休申请表</h1>
     </div>
         <div class="item">
             <label class="lab">原始调休：</label>
