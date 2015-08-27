@@ -20,9 +20,40 @@ public partial class staff : System.Web.UI.Page
             this.lb_name.Text = "欢迎 " + Session["name"] + " 同志登录！";
             gridviewoverbind();
             gridviewleavebind();
+            gridviewworkbind();
         }   
     }
+    public void gridviewworkbind()
+    {
+        workDBDataContext db = new workDBDataContext();
+        var query = from a in db.jiaban
+                    where (a.starttime.Value.Month == DateTime.Now.Month) && (a.name == Session["name"].ToString() && (a.starttime.Value.Year == DateTime.Now.Year))
+                    select a;
+        if (query.Count() != 0)
+        {
+            DataSet ds = new DataSet();
+            DataTable tb = ds.Tables.Add("reivew_jiaban");
+            tb.Columns.Add(new DataColumn("starttime", typeof(string)));
+            tb.Columns.Add(new DataColumn("endtime", typeof(string)));
+            tb.Columns.Add(new DataColumn("result", typeof(string)));
 
+            foreach (var leave in query)
+            {
+                string origin_str = leave.starttime.ToString().Substring(0, leave.starttime.ToString().LastIndexOf(" ")) + "," + leave.startweek + "," + leave.startshift;
+                string current_str = leave.endtime.ToString().Substring(0, leave.endtime.ToString().LastIndexOf(" ")) + "," + leave.endweek + "," + leave.endshift;
+                string result = "";
+                switch (leave.approve)
+                {
+                    case 4: result = "通过"; break;
+                    case 5: result = "未通过"; break;
+                    default: result = "未审批"; break;
+                }
+                tb.Rows.Add(new object[] { origin_str, current_str, result });
+            }
+            this.gv_jiaban.DataSource = ds;
+            this.gv_jiaban.DataBind();
+        }
+    }
     public void gridviewleavebind()
     {
         workDBDataContext db = new workDBDataContext();
@@ -245,6 +276,78 @@ public partial class staff : System.Web.UI.Page
                    + morning + "</br >下午：" + noon + "</div></div>";
         }
     }
+
+    protected void caljiaban_DayRender(object sender, DayRenderEventArgs e)
+    {
+        string morning = "";
+        string noon = "";
+
+        if (e.Day.IsOtherMonth)
+        {
+            e.Cell.Controls.Clear();
+        }
+        else
+        {
+            DateTime dateToday = e.Day.Date;
+            workDBDataContext db = new workDBDataContext();
+            var query_leave = from a in db.jiaban
+                              where (a.starttime <= dateToday && a.endtime >= dateToday) && a.approve == 4
+                              select a;
+            if (query_leave.Count() != 0)
+            {
+                foreach (var work in query_leave)
+                {
+                    if (work.starttime < dateToday && work.endtime > dateToday)     //中间日期
+                    {
+                        morning += work.name + ";";
+                        noon += work.name + ";";
+                    }
+                    else if (work.starttime == dateToday && work.endtime != dateToday) //正好开始日期
+                    {
+                        if (work.startshift == "上午")
+                        {
+                            morning += work.name + ";";
+                            noon += work.name + ";";
+                        }
+                        else
+                        {
+                            noon += work.name + ";";
+                        }
+                    }
+                    else if (work.endtime == dateToday && work.starttime != dateToday)  //正好结束日期
+                    {
+                        if (work.endshift == "下午")
+                        {
+                            morning += work.name + ";";
+                            noon += work.name + ";";
+                        }
+                        else
+                        {
+                            morning += work.name + ";";
+                        }
+                    }
+                    else if (work.endtime == dateToday && work.starttime == dateToday)  //正好当天
+                    {
+                        if (work.startshift == "上午")
+                        {
+                            morning += work.name + ";";
+                            if (work.endshift == "下午")
+                            {
+                                noon += work.name + ";";
+                            }
+                        }
+                        else
+                        {
+                            noon += work.name + ";";
+                        }
+                    }
+                }
+            }
+            e.Cell.Text = "<div style = 'font-size:22px;" + (e.Day.Date.Day == DateTime.Now.Day ? "background-color:#C6E7FF; color:#0B67A9'>" : "'>") + e.Day.Date.Day + "</br>"
+                   + "<div style='font-size:12px; color:#676767;'>上午："
+                   + morning + "</br >下午：" + noon + "</div></div>";
+        }
+    }
     protected void lbtn_request_Click(object sender, EventArgs e)
     {
         if (Session["name"] != null)
@@ -257,6 +360,13 @@ public partial class staff : System.Web.UI.Page
     {
         if (Session["name"] != null)
             HttpContext.Current.Response.Redirect("~/CommitOver.aspx");
+        else
+            HttpContext.Current.Response.Redirect("~/SBSLogin.aspx");
+    }
+    protected void lbtn_jiaban_Click(object sender, EventArgs e)
+    {
+        if (Session["name"] != null)
+            HttpContext.Current.Response.Redirect("~/CommitWork.aspx");
         else
             HttpContext.Current.Response.Redirect("~/SBSLogin.aspx");
     }

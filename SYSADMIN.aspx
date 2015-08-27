@@ -114,6 +114,55 @@ where ID=@ID"
                 <asp:CommandField ShowDeleteButton="True" />
             </Columns>
         </asp:GridView>
+        <asp:SqlDataSource ID="SqlDataSource3" runat="server" 
+            ConnectionString="<%$ ConnectionStrings:WorkFlowConnectionString %>" 
+            DeleteCommand="DELETE FROM jiaban WHERE (ID = @ID)" 
+            SelectCommand="SELECT * FROM [jiaban]" 
+            
+            UpdateCommand="UPDATE jiaban SET name = @name, starttime = @starttime, endtime = @endtime, startshift = @startshit, endshift = @endshift, startweek = @startweek, [content] = @content, endweek = @endweek, approve = @approve WHERE (ID = @ID)">
+            <DeleteParameters>
+                <asp:Parameter Name="ID" />
+            </DeleteParameters>
+            <UpdateParameters>
+                <asp:Parameter Name="name" />
+                <asp:Parameter Name="starttime" />
+                <asp:Parameter Name="endtime" />
+                <asp:Parameter Name="startshit" />
+                <asp:Parameter Name="endshift" />
+                <asp:Parameter Name="startweek" />
+                <asp:Parameter Name="content" />
+                <asp:Parameter Name="endweek" />
+                <asp:Parameter Name="approve" />
+                <asp:Parameter Name="ID" />
+            </UpdateParameters>
+        </asp:SqlDataSource>
+        <br />
+        <asp:GridView ID="GridView3" runat="server" AutoGenerateColumns="False"
+            SkinID="gridviewskin"  Width="1000px" AllowPaging="True" 
+            AllowSorting="True" DataKeyNames="ID" DataSourceID="SqlDataSource3">
+            <Columns>
+                <asp:BoundField DataField="ID" HeaderText="编号" InsertVisible="False" 
+                    ReadOnly="True" SortExpression="ID" />
+                <asp:BoundField DataField="name" HeaderText="姓名" SortExpression="name" />
+                <asp:BoundField DataField="starttime" 
+                    HeaderText="加班起始时间" SortExpression="starttime" />
+                <asp:BoundField DataField="endtime" HeaderText="加班结束时间" 
+                    SortExpression="endtime" />
+                <asp:BoundField DataField="startshift" HeaderText="加班起始班次" 
+                    SortExpression="startshift" />
+                <asp:BoundField DataField="endshift" 
+                    HeaderText="加班结束班次" SortExpression="endshift" />
+                <asp:BoundField DataField="startweek" HeaderText="原始星期几" 
+                    SortExpression="startweek" />
+                <asp:BoundField DataField="endweek" HeaderText="当前星期几" 
+                    SortExpression="endweek" />
+                <asp:BoundField DataField="content" HeaderText="工作内容" 
+                    SortExpression="content" />
+                <asp:BoundField DataField="approve" HeaderText="加班审批结果" 
+                    SortExpression="approve" />
+                <asp:CommandField ShowDeleteButton="True" ShowEditButton="True" />
+            </Columns>
+        </asp:GridView>
 </div>
 </asp:Content>
 

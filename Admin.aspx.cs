@@ -22,6 +22,41 @@ public partial class Admin : System.Web.UI.Page
             this.lb_name.Text = "欢迎 " + Session["name"] + " 领导登录！";
             gridviewoverbind();
             gridviewleavebind();
+            gridviewworkbind();
+        }
+    }
+
+    public void gridviewworkbind()
+    {
+        workDBDataContext db = new workDBDataContext();
+        var query = from a in db.jiaban
+                    where a.approve == -1
+                    select a;
+        if (query.Count() != 0)
+        {
+            DataSet ds = new DataSet();
+            DataTable tb = ds.Tables.Add("reivew_jiaban");
+            tb.Columns.Add(new DataColumn("name", typeof(string)));
+            tb.Columns.Add(new DataColumn("starttime", typeof(string)));
+            tb.Columns.Add(new DataColumn("endtime", typeof(string)));
+            tb.Columns.Add(new DataColumn("reason", typeof(string)));
+
+            foreach (var leave in query)
+            {
+                string origin_str = leave.starttime.ToString().Substring(0, leave.starttime.ToString().LastIndexOf(" ")) + "," + leave.startweek + "," + leave.startshift;
+                string current_str = leave.endtime.ToString().Substring(0, leave.endtime.ToString().LastIndexOf(" ")) + "," + leave.endweek + "," + leave.endshift;
+                tb.Rows.Add(new object[] { leave.name, origin_str, current_str, leave.content });
+            }
+
+            this.gv_jiaban.DataSource = ds;
+            this.gv_jiaban.DataBind();
+            this.btn_norecord2.Visible = false;
+            this.btn_jiaban.Visible = true;
+        }
+        else
+        {
+            this.btn_norecord2.Visible = true;
+            this.btn_jiaban.Visible = false;
         }
     }
 
@@ -338,5 +373,111 @@ public partial class Admin : System.Web.UI.Page
             return;
         }
         HttpContext.Current.Response.Redirect("~/Admin.aspx");
+    }
+    protected void btn_jiaban_Click(object sender, EventArgs e)
+    {
+        if (Session["name"] == null)
+        {
+            Page.ClientScript.RegisterStartupScript(GetType(), "", "alert('登录已过期');location.href='SBSLogin.aspx';", true);
+            return;
+        }
+
+        int row_count = 0;
+        workDBDataContext db = new workDBDataContext();
+        var query = from a in db.jiaban
+                    where a.approve == -1
+                    select a;
+
+        foreach (GridViewRow r in gv_jiaban.Rows)
+        {
+            Control c = r.FindControl("chb_jiaban");
+            jiaban ot = query.ToList().ElementAt(row_count++);
+            if (ot.name == r.Cells[1].Text)
+            {
+                if (((CheckBox)c).Checked)
+                {
+                    ot.approve = 4;
+                }
+                else
+                {
+                    ot.approve = 5;
+                }
+            }
+        }
+        //修改数据库
+        db.SubmitChanges();
+        //刷新表单
+        Response.Redirect("~/admin.aspx");
+    }
+    protected void caljiaban_DayRender(object sender, DayRenderEventArgs e)
+    {
+        string morning = "";
+        string noon = "";
+
+        if (e.Day.IsOtherMonth)
+        {
+            e.Cell.Controls.Clear();
+        }
+        else
+        {
+            DateTime dateToday = e.Day.Date;
+            workDBDataContext db = new workDBDataContext();
+            var query_leave = from a in db.jiaban
+                              where (a.starttime <= dateToday && a.endtime >= dateToday) && a.approve == 4
+                              select a;
+            if (query_leave.Count() != 0)
+            {
+                foreach (var work in query_leave)
+                {
+                    if (work.starttime < dateToday && work.endtime > dateToday)     //中间日期
+                    {
+                        morning += work.name + ";";
+                        noon += work.name + ";";
+                    }
+                    else if (work.starttime == dateToday && work.endtime != dateToday) //正好开始日期
+                    {
+                        if (work.startshift == "上午")
+                        {
+                            morning += work.name + ";";
+                            noon += work.name + ";";
+                        }
+                        else
+                        {
+                            noon += work.name + ";";
+                        }
+                    }
+                    else if (work.endtime == dateToday && work.starttime != dateToday)  //正好结束日期
+                    {
+                        if (work.endshift == "下午")
+                        {
+                            morning += work.name + ";";
+                            noon += work.name + ";";
+                        }
+                        else
+                        {
+                            morning += work.name + ";";
+                        }
+                    }
+                    else if (work.endtime == dateToday && work.starttime == dateToday)  //正好当天
+                    {
+                        if (work.startshift == "上午")
+                        {
+                            morning += work.name + ";";
+                            if (work.endshift == "下午")
+                            {
+                                noon += work.name + ";";
+                            }
+                        }
+                        else
+                        {
+                            noon += work.name + ";";
+                        }
+                    }
+                }
+            }
+            e.Cell.Text = "<div style = 'font-size:22px;" + (e.Day.Date.Day == DateTime.Now.Day ? "background-color:#C6E7FF; color:#0B67A9'>" : "'>") + e.Day.Date.Day + "</br>"
+                   + "<div style='font-size:12px; color:#676767;'>上午："
+                   + morning + "</br >下午：" + noon + "</div></div>";
+        }
     }
 }

@@ -51,6 +51,11 @@ public partial class Commit : System.Web.UI.Page
             Page.ClientScript.RegisterStartupScript(GetType(), "", "alert('开始日期不得晚于结束日期');location.href='CommitLeave.aspx';", true);
             return;
         }
+        else if (mywork.starttime == mywork.endtime && mywork.originshift == "下午" && mywork.currentshift == "上午")
+        {
+            Page.ClientScript.RegisterStartupScript(GetType(), "", "alert('开始日期不得晚于结束日期');location.href='CommitLeave.aspx';", true);
+            return;
+        }
 
         db.workoff.InsertOnSubmit(mywork);
         db.SubmitChanges();

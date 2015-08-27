@@ -32,5 +32,11 @@
         <elementListCompartment Id="dc2bf531-9945-42d2-ab34-243c81e06acf" absoluteBounds="7.6400000000000006, 1.46, 1.9700000000000002, 2.1576639811197915" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
+    <classShape Id="22d41c9b-9365-46bc-836f-d25a21b272da" absoluteBounds="3.25, 0.5, 2, 2.7176639811197916">
+      <DataClassMoniker Name="/workDBDataContext/jiaban" />
+      <nestedChildShapes>
+        <elementListCompartment Id="e1c5a1d4-8e9a-493a-a0b1-17551515e5e5" absoluteBounds="3.265, 0.96, 1.9700000000000002, 2.1576639811197915" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
   </nestedChildShapes>
 </ordesignerObjectsDiagram>

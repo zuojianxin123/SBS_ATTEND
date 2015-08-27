@@ -13,7 +13,7 @@
 <form id="form1" runat="server">
     <div style="text-align: center;margin-left:auto;margin-right:auto;width:1000px;">
         <div style="font-size: 14pt; ">
-        <a href="Default.aspx">值班</a>&nbsp;-&nbsp;<a href="Change.aspx">调班</a>&nbsp;-&nbsp;<a href="Manage.aspx">排班</a>&nbsp;-&nbsp;<a href="SBSLogin.aspx">调休请假</a>&nbsp;-&nbsp;<a href="checklist.htm">帮助</a>
+        <a href="Default.aspx">值班</a>&nbsp;-&nbsp;<a href="Change.aspx">调班</a>&nbsp;-&nbsp;<a href="Manage.aspx">排班</a>&nbsp;-&nbsp;<a href="SBSLogin.aspx">加班/调休/请假</a>&nbsp;-&nbsp;<a href="checklist.htm">帮助</a>
         <br />
         </div>
         <div style="font-size:18pt; margin-top:25px; margin-bottom:25px;">

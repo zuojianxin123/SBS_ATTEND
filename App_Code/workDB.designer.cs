@@ -44,6 +44,9 @@ public partial class workDBDataContext : System.Data.Linq.DataContext
   partial void Insertworkoff(workoff instance);
   partial void Updateworkoff(workoff instance);
   partial void Deleteworkoff(workoff instance);
+  partial void Insertjiaban(jiaban instance);
+  partial void Updatejiaban(jiaban instance);
+  partial void Deletejiaban(jiaban instance);
   #endregion
 	
 	public workDBDataContext() : 
@@ -113,6 +116,14 @@ public partial class workDBDataContext : System.Data.Linq.DataContext
 		get
 		{
 			return this.GetTable<workoff>();
+		}
+	}
+	
+	public System.Data.Linq.Table<jiaban> jiaban
+	{
+		get
+		{
+			return this.GetTable<jiaban>();
 		}
 	}
 }
@@ -1102,6 +1113,284 @@ public partial class workoff : INotifyPropertyChanging, INotifyPropertyChanged
 				this._reason = value;
 				this.SendPropertyChanged("reason");
 				this.OnreasonChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_approve", DbType="Int")]
+	public System.Nullable<int> approve
+	{
+		get
+		{
+			return this._approve;
+		}
+		set
+		{
+			if ((this._approve != value))
+			{
+				this.OnapproveChanging(value);
+				this.SendPropertyChanging();
+				this._approve = value;
+				this.SendPropertyChanged("approve");
+				this.OnapproveChanged();
+			}
+		}
+	}
+	
+	public event PropertyChangingEventHandler PropertyChanging;
+	
+	public event PropertyChangedEventHandler PropertyChanged;
+	
+	protected virtual void SendPropertyChanging()
+	{
+		if ((this.PropertyChanging != null))
+		{
+			this.PropertyChanging(this, emptyChangingEventArgs);
+		}
+	}
+	
+	protected virtual void SendPropertyChanged(String propertyName)
+	{
+		if ((this.PropertyChanged != null))
+		{
+			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		}
+	}
+}
+
+[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.jiaban")]
+public partial class jiaban : INotifyPropertyChanging, INotifyPropertyChanged
+{
+	
+	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+	
+	private int _ID;
+	
+	private string _name;
+	
+	private System.Nullable<System.DateTime> _starttime;
+	
+	private System.Nullable<System.DateTime> _endtime;
+	
+	private string _startshift;
+	
+	private string _endshift;
+	
+	private string _startweek;
+	
+	private string _endweek;
+	
+	private string _content;
+	
+	private System.Nullable<int> _approve;
+	
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDChanging(int value);
+    partial void OnIDChanged();
+    partial void OnnameChanging(string value);
+    partial void OnnameChanged();
+    partial void OnstarttimeChanging(System.Nullable<System.DateTime> value);
+    partial void OnstarttimeChanged();
+    partial void OnendtimeChanging(System.Nullable<System.DateTime> value);
+    partial void OnendtimeChanged();
+    partial void OnstartshiftChanging(string value);
+    partial void OnstartshiftChanged();
+    partial void OnendshiftChanging(string value);
+    partial void OnendshiftChanged();
+    partial void OnstartweekChanging(string value);
+    partial void OnstartweekChanged();
+    partial void OnendweekChanging(string value);
+    partial void OnendweekChanged();
+    partial void OncontentChanging(string value);
+    partial void OncontentChanged();
+    partial void OnapproveChanging(System.Nullable<int> value);
+    partial void OnapproveChanged();
+    #endregion
+	
+	public jiaban()
+	{
+		OnCreated();
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+	public int ID
+	{
+		get
+		{
+			return this._ID;
+		}
+		set
+		{
+			if ((this._ID != value))
+			{
+				this.OnIDChanging(value);
+				this.SendPropertyChanging();
+				this._ID = value;
+				this.SendPropertyChanged("ID");
+				this.OnIDChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_name", DbType="VarChar(20)")]
+	public string name
+	{
+		get
+		{
+			return this._name;
+		}
+		set
+		{
+			if ((this._name != value))
+			{
+				this.OnnameChanging(value);
+				this.SendPropertyChanging();
+				this._name = value;
+				this.SendPropertyChanged("name");
+				this.OnnameChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_starttime", DbType="DateTime")]
+	public System.Nullable<System.DateTime> starttime
+	{
+		get
+		{
+			return this._starttime;
+		}
+		set
+		{
+			if ((this._starttime != value))
+			{
+				this.OnstarttimeChanging(value);
+				this.SendPropertyChanging();
+				this._starttime = value;
+				this.SendPropertyChanged("starttime");
+				this.OnstarttimeChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_endtime", DbType="DateTime")]
+	public System.Nullable<System.DateTime> endtime
+	{
+		get
+		{
+			return this._endtime;
+		}
+		set
+		{
+			if ((this._endtime != value))
+			{
+				this.OnendtimeChanging(value);
+				this.SendPropertyChanging();
+				this._endtime = value;
+				this.SendPropertyChanged("endtime");
+				this.OnendtimeChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_startshift", DbType="VarChar(20)")]
+	public string startshift
+	{
+		get
+		{
+			return this._startshift;
+		}
+		set
+		{
+			if ((this._startshift != value))
+			{
+				this.OnstartshiftChanging(value);
+				this.SendPropertyChanging();
+				this._startshift = value;
+				this.SendPropertyChanged("startshift");
+				this.OnstartshiftChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_endshift", DbType="VarChar(20)")]
+	public string endshift
+	{
+		get
+		{
+			return this._endshift;
+		}
+		set
+		{
+			if ((this._endshift != value))
+			{
+				this.OnendshiftChanging(value);
+				this.SendPropertyChanging();
+				this._endshift = value;
+				this.SendPropertyChanged("endshift");
+				this.OnendshiftChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_startweek", DbType="VarChar(20)")]
+	public string startweek
+	{
+		get
+		{
+			return this._startweek;
+		}
+		set
+		{
+			if ((this._startweek != value))
+			{
+				this.OnstartweekChanging(value);
+				this.SendPropertyChanging();
+				this._startweek = value;
+				this.SendPropertyChanged("startweek");
+				this.OnstartweekChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_endweek", DbType="VarChar(20)")]
+	public string endweek
+	{
+		get
+		{
+			return this._endweek;
+		}
+		set
+		{
+			if ((this._endweek != value))
+			{
+				this.OnendweekChanging(value);
+				this.SendPropertyChanging();
+				this._endweek = value;
+				this.SendPropertyChanged("endweek");
+				this.OnendweekChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_content", DbType="VarChar(50)")]
+	public string content
+	{
+		get
+		{
+			return this._content;
+		}
+		set
+		{
+			if ((this._content != value))
+			{
+				this.OncontentChanging(value);
+				this.SendPropertyChanging();
+				this._content = value;
+				this.SendPropertyChanged("content");
+				this.OncontentChanged();
 			}
 		}
 	}

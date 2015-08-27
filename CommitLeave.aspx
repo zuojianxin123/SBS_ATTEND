@@ -58,7 +58,7 @@
             <label class="lab">请假理由：</label>
           
             <asp:TextBox ID="tb_leave" runat="server" MaxLength="50" TextMode="MultiLine" 
-                Width="213px"></asp:TextBox>
+                Width="259px" Height="159px">不得超过25字</asp:TextBox>
           
         </div>
         <div class="item">
