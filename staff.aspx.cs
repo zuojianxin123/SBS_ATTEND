@@ -41,13 +41,7 @@ public partial class staff : System.Web.UI.Page
             {
                 string origin_str = leave.starttime.ToString().Substring(0, leave.starttime.ToString().LastIndexOf(" ")) + "," + leave.startweek + "," + leave.startshift;
                 string current_str = leave.endtime.ToString().Substring(0, leave.endtime.ToString().LastIndexOf(" ")) + "," + leave.endweek + "," + leave.endshift;
-                string result = "";
-                switch (leave.approve)
-                {
-                    case 4: result = "通过"; break;
-                    case 5: result = "未通过"; break;
-                    default: result = "未审批"; break;
-                }
+                string result = leave.content;
                 tb.Rows.Add(new object[] { origin_str, current_str, result });
             }
             this.gv_jiaban.DataSource = ds;

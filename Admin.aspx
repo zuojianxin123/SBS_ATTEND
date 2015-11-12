@@ -80,20 +80,13 @@
          <br />
         <br />
         <asp:Label ID="lb_name2" runat="server" Font-Bold="True" Font-Size="X-Large" 
-            ForeColor="#3366FF" Text="审批加班"></asp:Label>
+            ForeColor="#3366FF" Text="本月加班信息汇总"></asp:Label>
         <br />
         <br />
         <asp:GridView ID="gv_jiaban" runat="server" AutoGenerateColumns="False"
-            SkinID="gridviewskin"  Width="1000px">
+            SkinID="gridviewskin"  Width="1000px" AllowPaging="True" 
+            onpageindexchanging="gv_jiaban_PageIndexChanging" PageSize="5">
             <Columns>
-                <asp:TemplateField HeaderText="审核">
-                    <EditItemTemplate>
-                        <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
-                    </EditItemTemplate>
-                    <ItemTemplate>
-                        <asp:CheckBox ID="chb_jiaban" runat="server" />
-                    </ItemTemplate>
-                </asp:TemplateField>
                 <asp:BoundField DataField="name" HeaderText="姓名" >
                 <ItemStyle ForeColor="#FF6600" />
                 </asp:BoundField>
@@ -102,13 +95,6 @@
                 <asp:BoundField DataField="reason" HeaderText="工作内容" />
             </Columns>
         </asp:GridView>
-        <br />
-        <asp:Button ID="btn_norecord2" runat="server" Font-Bold="True" 
-            Font-Size="Large" ForeColor="Red" onclick="btn_norecord_Click" Text="无审批记录！" />
-        <br />
-        <br />
-        <asp:Button ID="btn_jiaban" runat="server" Text="审批加班" Font-Bold="True" 
-            Font-Size="Large" onclick="btn_jiaban_Click" />
         <br />
         <br />
     <asp:Label ID="Label1" runat="server" Text="本月调整休息人员表" Font-Bold="True" 

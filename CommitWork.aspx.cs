@@ -67,7 +67,7 @@ public partial class CommitWork : System.Web.UI.Page
         myjb.endshift = this.drp_end.Text;
         myjb.endweek = convertdate(Convert.ToDateTime(this.txtTo.Text).DayOfWeek.ToString());
         myjb.content = this.tb_leave.Text;
-        myjb.approve = -1;
+        myjb.approve = 4;
 
         if (myjb.starttime > myjb.endtime)
         {
@@ -82,6 +82,6 @@ public partial class CommitWork : System.Web.UI.Page
 
         db.jiaban.InsertOnSubmit(myjb);
         db.SubmitChanges();
-        Page.ClientScript.RegisterStartupScript(GetType(), "", "alert('申请提交成功!');location.href='staff.aspx';", true);
+        Page.ClientScript.RegisterStartupScript(GetType(), "", "alert('加班申报成功!');location.href='staff.aspx';", true);
     }
 }

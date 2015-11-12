@@ -30,7 +30,7 @@ public partial class Admin : System.Web.UI.Page
     {
         workDBDataContext db = new workDBDataContext();
         var query = from a in db.jiaban
-                    where a.approve == -1
+                    where (a.starttime.Value.Month == DateTime.Now.Month) && (a.starttime.Value.Year == DateTime.Now.Year)
                     select a;
         if (query.Count() != 0)
         {
@@ -50,13 +50,6 @@ public partial class Admin : System.Web.UI.Page
 
             this.gv_jiaban.DataSource = ds;
             this.gv_jiaban.DataBind();
-            this.btn_norecord2.Visible = false;
-            this.btn_jiaban.Visible = true;
-        }
-        else
-        {
-            this.btn_norecord2.Visible = true;
-            this.btn_jiaban.Visible = false;
         }
     }
 
@@ -374,41 +367,41 @@ public partial class Admin : System.Web.UI.Page
         }
         HttpContext.Current.Response.Redirect("~/Admin.aspx");
     }
-    protected void btn_jiaban_Click(object sender, EventArgs e)
-    {
-        if (Session["name"] == null)
-        {
-            Page.ClientScript.RegisterStartupScript(GetType(), "", "alert('登录已过期');location.href='SBSLogin.aspx';", true);
-            return;
-        }
+    //protected void btn_jiaban_Click(object sender, EventArgs e)
+    //{
+    //    if (Session["name"] == null)
+    //    {
+    //        Page.ClientScript.RegisterStartupScript(GetType(), "", "alert('登录已过期');location.href='SBSLogin.aspx';", true);
+    //        return;
+    //    }
 
-        int row_count = 0;
-        workDBDataContext db = new workDBDataContext();
-        var query = from a in db.jiaban
-                    where a.approve == -1
-                    select a;
+    //    int row_count = 0;
+    //    workDBDataContext db = new workDBDataContext();
+    //    var query = from a in db.jiaban
+    //                where a.approve == -1
+    //                select a;
 
-        foreach (GridViewRow r in gv_jiaban.Rows)
-        {
-            Control c = r.FindControl("chb_jiaban");
-            jiaban ot = query.ToList().ElementAt(row_count++);
-            if (ot.name == r.Cells[1].Text)
-            {
-                if (((CheckBox)c).Checked)
-                {
-                    ot.approve = 4;
-                }
-                else
-                {
-                    ot.approve = 5;
-                }
-            }
-        }
-        //修改数据库
-        db.SubmitChanges();
-        //刷新表单
-        Response.Redirect("~/admin.aspx");
-    }
+    //    foreach (GridViewRow r in gv_jiaban.Rows)
+    //    {
+    //        Control c = r.FindControl("chb_jiaban");
+    //        jiaban ot = query.ToList().ElementAt(row_count++);
+    //        if (ot.name == r.Cells[1].Text)
+    //        {
+    //            if (((CheckBox)c).Checked)
+    //            {
+    //                ot.approve = 4;
+    //            }
+    //            else
+    //            {
+    //                ot.approve = 5;
+    //            }
+    //        }
+    //    }
+    //    //修改数据库
+    //    db.SubmitChanges();
+    //    //刷新表单
+    //    Response.Redirect("~/admin.aspx");
+    //}
     protected void caljiaban_DayRender(object sender, DayRenderEventArgs e)
     {
         string morning = "";
@@ -479,5 +472,10 @@ public partial class Admin : System.Web.UI.Page
                    + "<div style='font-size:12px; color:#676767;'>上午："
                    + morning + "</br >下午：" + noon + "</div></div>";
         }
+    }
+    protected void gv_jiaban_PageIndexChanging(object sender, GridViewPageEventArgs e)
+    {
+        gv_jiaban.PageIndex = e.NewPageIndex;
+        gridviewworkbind();
     }
 }

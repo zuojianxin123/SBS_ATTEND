@@ -56,7 +56,7 @@
             <Columns>
                 <asp:BoundField DataField="starttime" HeaderText="开始时间" />
                 <asp:BoundField DataField="endtime" HeaderText="结束时间" />
-                <asp:BoundField DataField="result" HeaderText="审批结果">
+                <asp:BoundField DataField="result" HeaderText="工作内容">
                 <ItemStyle ForeColor="#FF6600" />
                 </asp:BoundField>
             </Columns>

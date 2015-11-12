@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Data.Linq.SqlClient;
 
 public partial class CommitOver : System.Web.UI.Page
 {
@@ -95,12 +96,13 @@ public partial class CommitOver : System.Web.UI.Page
         int lastday = DateTime.DaysInMonth(DateTime.Now.Year,DateTime.Now.Month-1);
         DateTime last = new DateTime(DateTime.Now.Year,DateTime.Now.Month-1,lastday);
         workDBDataContext db = new workDBDataContext();
+        name = "%" + name + "%";
         var query_morning = from a in db.workhistory
-                            where a.worktime.Value.Month == DateTime.Now.Month && a.worktime.Value.Year == DateTime.Now.Year && a.worker == name
+                            where a.worktime.Value.Month == DateTime.Now.Month && a.worktime.Value.Year == DateTime.Now.Year && SqlMethods.Like(a.worker, name)
                             select a;
 
         var query_noon = from a in db.workhistory
-                         where (a.worktime.Value.Month == DateTime.Now.Month && a.worktime.Value.Year == DateTime.Now.Year || a.worktime.Value == last)&& a.worker1 == name
+                         where (a.worktime.Value.Month == DateTime.Now.Month && a.worktime.Value.Year == DateTime.Now.Year || a.worktime.Value == last) && SqlMethods.Like(a.worker1, name)
                             select a;
 
         if (query_morning.Count() != 0)
@@ -160,12 +162,14 @@ public partial class CommitOver : System.Web.UI.Page
             DateTime dateToday = e.Day.Date;
             workDBDataContext db = new workDBDataContext();
 
+            name = "%" + name + "%";
+
             /*根据值班表生成*/
             var query_before = from a in db.workhistory
-                               where a.worktime == dateToday.AddDays(-1) && a.worker1 == name
+                               where a.worktime == dateToday.AddDays(-1) && SqlMethods.Like(a.worker1, name)
                                select a;
             var query_current = from a in db.workhistory
-                                where a.worktime == dateToday && a.worker == name
+                                where a.worktime == dateToday && SqlMethods.Like(a.worker, name)
                                 select a;
 
 
